@@ -1,18 +1,14 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Column, Entity } from 'typeorm';
+import { CommonEntity } from './CommonEntity';
 
-@Entity()
-export class User {
+@Entity('user')
+export class User extends CommonEntity {
+  @Column({ nullable: true })
+  firstName: string;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column({ nullable: true })
+  lastName: string;
 
-    @Column()
-    firstName: string;
-
-    @Column()
-    lastName: string;
-
-    @Column()
-    age: number;
-
+  @Column({ nullable: true })
+  age: number;
 }
