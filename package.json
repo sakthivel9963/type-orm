@@ -1,5 +1,5 @@
 {
-  "name": "express-basic-typescript",
+  "name": "type-orm",
   "version": "0.0.1",
   "description": "",
   "main": "./dist/index.js",

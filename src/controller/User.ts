@@ -2,22 +2,25 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { UserRepository } from '../repository';
 import { getCustomRepository } from 'typeorm';
 
-export class UserController {
-  constructor() {}
+const userRouter: Router = Router();
 
-  static async save(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
-    try {
-      const userRepository = getCustomRepository(UserRepository);
-      const user = userRepository.create(); // same as const user = new User();
-      user.firstName = 'Timber';
-      user.lastName = 'Saw';
-      await userRepository.save(user);
-    } catch (error) {
-      next(error);
-    }
-  }
-}
+userRouter.get(
+	'/user',
+	async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			const userRepository = getCustomRepository(UserRepository);
+			const user = userRepository.create(); // same as const user = new User();
+			user.firstName = 'Timber';
+			user.lastName = 'Saw';
+			const result = await userRepository.save(user);
+			res.send({
+				message: 'success',
+				id: result.id,
+			});
+		} catch (error) {
+			next(error);
+		}
+	},
+);
+
+export default userRouter;
