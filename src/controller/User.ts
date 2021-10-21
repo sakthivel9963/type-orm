@@ -25,11 +25,14 @@ userRouter.get(
 			// await user.save();
 
 			const user = await User.createQueryBuilder('user')
-				.select('user.userName')
 				.leftJoinAndSelect('user.profile', 'profile')
 				.getMany();
 
-			res.send(user);
+			const oneToMany = await User.createQueryBuilder('user')
+				.leftJoinAndSelect('user.blog', 'blog')
+				.getMany();
+
+			res.send(oneToMany);
 		} catch (error) {
 			next(error);
 		}

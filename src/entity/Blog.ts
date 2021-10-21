@@ -6,6 +6,8 @@ import {
 	Entity,
 	Generated,
 	JoinColumn,
+	ManyToOne,
+	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	Timestamp,
@@ -14,7 +16,7 @@ import {
 import { User } from '.';
 
 @Entity()
-export class Profile extends BaseEntity {
+export class Blog extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
@@ -23,15 +25,15 @@ export class Profile extends BaseEntity {
 	uuid: string;
 
 	@Column()
-	firstName: string;
+	title: string;
 
 	@Column({ nullable: true })
-	lastName: string;
+	description: string;
 
 	@Column({ nullable: true })
-	avatar: string;
+	image: string;
 
-	@OneToOne(() => User, (user) => user.profile, {
+	@ManyToOne(() => User, (user) => user.blog, {
 		onDelete: 'CASCADE',
 		nullable: false,
 	})

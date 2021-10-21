@@ -5,12 +5,13 @@ import {
 	DeleteDateColumn,
 	Entity,
 	Generated,
+	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	Timestamp,
 	UpdateDateColumn,
 } from 'typeorm';
-import { Profile } from '.';
+import { Blog, Profile } from '.';
 
 @Entity()
 export class User extends BaseEntity {
@@ -29,6 +30,9 @@ export class User extends BaseEntity {
 
 	@OneToOne(() => Profile, (profile) => profile.user)
 	profile: Profile;
+
+	@OneToMany(() => Blog, (blog) => blog.user)
+	blog: Blob[];
 
 	// default column for all the entity file
 	@Column({ default: true })
