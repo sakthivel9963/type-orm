@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import { UserRepository } from '../repository';
-import { getCustomRepository } from 'typeorm';
-import { User } from '../entity';
+import { createQueryBuilder, getCustomRepository } from 'typeorm';
+import { Profile, User } from '../entity';
 
 const userRouter: Router = Router();
 
@@ -18,18 +17,23 @@ userRouter.get(
 			// 	message: 'success',
 			// 	id: result.id,
 			// });
+			// const user = User.create({
+			// 	first_name: 'sakthivel',
+			// 	last_name: 'a',
+			// 	age: 5,
+			// });
+			// await user.save();
 
-			const user = User.create({
-				first_name: 'sakthivel',
-				last_name: 'a',
-				age: 5,
-			});
-			await user.save();
+			const user = await User.createQueryBuilder('user')
+				.select('user.userName')
+				.leftJoinAndSelect('user.profile', 'profile')
+				.getMany();
+
 			res.send(user);
 		} catch (error) {
 			next(error);
 		}
-	},
+	}
 );
 
 export default userRouter;

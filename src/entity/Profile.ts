@@ -5,15 +5,16 @@ import {
 	DeleteDateColumn,
 	Entity,
 	Generated,
+	JoinColumn,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	Timestamp,
 	UpdateDateColumn,
 } from 'typeorm';
-import { Profile } from '.';
+import { User } from '.';
 
 @Entity()
-export class User extends BaseEntity {
+export class Profile extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
@@ -21,14 +22,18 @@ export class User extends BaseEntity {
 	@Generated('uuid')
 	uuid: string;
 
-	@Column({ unique: true })
-	userName: string;
-
 	@Column()
-	password: string;
+	firstName: string;
 
-	@OneToOne(() => Profile, (profile) => profile.user)
-	profile: Profile;
+	@Column({ nullable: true })
+	lastName: string;
+
+	@Column({ nullable: true })
+	avatar: string;
+
+	@OneToOne(() => User, (user) => user.profile, { onDelete: 'CASCADE' })
+	@JoinColumn()
+	user: User;
 
 	// default column for all the entity file
 	@Column({ default: true })
