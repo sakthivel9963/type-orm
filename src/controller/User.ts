@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { createQueryBuilder, getCustomRepository } from 'typeorm';
-import { Profile, User } from '../entity';
+import { Category, Profile, User } from '../entity';
 
 const userRouter: Router = Router();
 
@@ -29,10 +29,15 @@ userRouter.get(
 				.getMany();
 
 			const oneToMany = await User.createQueryBuilder('user')
-				.leftJoinAndSelect('user.blog', 'blog')
+				.leftJoinAndSelect('user.blogs', 'blog')
+				.leftJoinAndSelect('blog.categories', 'category')
 				.getMany();
 
-			res.send(oneToMany);
+			const manyToMany = await Category.createQueryBuilder('category')
+				.leftJoinAndSelect('category.blogs', 'blog')
+				.getMany();
+
+			res.send(user);
 		} catch (error) {
 			next(error);
 		}

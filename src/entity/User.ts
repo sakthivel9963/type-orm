@@ -7,6 +7,7 @@ import {
 	Generated,
 	OneToMany,
 	OneToOne,
+	PrimaryColumn,
 	PrimaryGeneratedColumn,
 	Timestamp,
 	UpdateDateColumn,
@@ -25,14 +26,14 @@ export class User extends BaseEntity {
 	@Column({ unique: true })
 	userName: string;
 
-	@Column()
+	@Column({ select: false })
 	password: string;
 
 	@OneToOne(() => Profile, (profile) => profile.user)
 	profile: Profile;
 
 	@OneToMany(() => Blog, (blog) => blog.user)
-	blog: Blob[];
+	blogs: Blob[];
 
 	// default column for all the entity file
 	@Column({ default: true })

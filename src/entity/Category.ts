@@ -5,18 +5,15 @@ import {
 	DeleteDateColumn,
 	Entity,
 	Generated,
-	JoinColumn,
-	JoinTable,
 	ManyToMany,
-	ManyToOne,
 	PrimaryGeneratedColumn,
 	Timestamp,
 	UpdateDateColumn,
 } from 'typeorm';
-import { Category, User } from '.';
+import { Blog } from '.';
 
 @Entity()
-export class Blog extends BaseEntity {
+export class Category extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
@@ -25,24 +22,10 @@ export class Blog extends BaseEntity {
 	uuid: string;
 
 	@Column()
-	title: string;
+	name: string;
 
-	@Column({ nullable: true })
-	description: string;
-
-	@Column({ nullable: true })
-	image: string;
-
-	@ManyToOne(() => User, (user) => user.blogs, {
-		onDelete: 'CASCADE',
-		nullable: false,
-	})
-	@JoinColumn()
-	user: User;
-
-	@ManyToMany(() => Category, (category) => category.blogs)
-	@JoinTable()
-	categories: Category[];
+	@ManyToMany(() => Blog, (blog) => blog.categories)
+	blogs: Blog[];
 
 	// default column for all the entity file
 	@Column({ default: true })
