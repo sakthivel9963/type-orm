@@ -8,8 +8,8 @@
 		"build": "npm run clean && tsc",
 		"watch": "tsc -w",
 		"prestart": "npm run build",
-		"start": "cross-env NODE_ENV=prod node dist/index.js",
-		"nodemon": "cross-env NODE_ENV=dev ts-node --files ./src/index.ts",
+		"start": "cross-env TYPE_ORM_NODE_ENV=prod node dist/index.js",
+		"nodemon": "cross-env TYPE_ORM_NODE_ENV=dev ts-node --files ./src/index.ts",
 		"dev": "nodemon --watch './**/*.ts'"
 	},
 	"keywords": [],

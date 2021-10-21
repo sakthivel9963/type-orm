@@ -9,9 +9,9 @@ module.exports = {
 	logging: true,
 	logger: 'file',
 	entities:
-		process.env.NODE_ENV === 'prod'
-			? ['dist/entity/**/*.js']
-			: ['src/entity/**/*.ts'],
+		process.env.TYPE_ORM_NODE_ENV === 'dev'
+			? ['src/entity/**/*.ts']
+			: ['dist/entity/**/*.js'],
 	migrations: ['src/migration/**/*.ts'],
 	subscribers: ['src/subscriber/**/*.ts'],
 	cli: {
